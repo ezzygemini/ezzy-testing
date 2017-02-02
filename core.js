@@ -2,7 +2,7 @@ const Jasmine = require('jasmine');
 const jasmine = new Jasmine();
 const path = require('path');
 
-module.exports = config => {
+module.exports = (type, config) => {
 
   jasmine.loadConfig(Object.assign({
     spec_dir: 'src',
@@ -10,6 +10,8 @@ module.exports = config => {
       '**/*[tT]est.js'
     ]
   }, config));
+
+  console.log(`Running: ${type}`);
 
   jasmine.execute();
 
