@@ -1,0 +1,13 @@
+{
+  "name": "testing",
+  "description": "A small pre-packaged module that will run jasmine tests against a repo.",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ezzygemini/testing.git"
+  },
+  "license": "MIT",
+  "version": "0.1.0",
+  "dependencies": {
+    "jasmine": "^2.5.3"
+  }
+}
