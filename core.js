@@ -1,8 +1,8 @@
 const Jasmine = require('jasmine');
-const jasmine = new Jasmine();
-const path = require('path');
 
 module.exports = (type, config) => {
+
+  const jasmine = new Jasmine();
 
   jasmine.loadConfig(Object.assign({
     spec_dir: 'src',
