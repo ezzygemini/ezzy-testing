@@ -1,2 +1,3 @@
 require('./unit')
-  .then(() => require('./integration'));
+  .then(() => require('./integration'))
+  .catch(() => console.error('Test failed'));
