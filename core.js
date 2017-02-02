@@ -1,6 +1,6 @@
 const Jasmine = require('jasmine');
 
-module.exports = (type, config) => {
+module.exports = (type, config) => new Promise((resolve, reject) => {
 
   const jasmine = new Jasmine();
 
@@ -11,10 +11,10 @@ module.exports = (type, config) => {
     ]
   }, config));
 
+  jasmine.onComplete(passed => passed ? resolve(passed) : reject(passed));
+
   console.log(`Running: ${type}`);
 
   jasmine.execute();
 
-};
-
-
+});
