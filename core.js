@@ -6,23 +6,19 @@ const Jasmine = require('jasmine');
  * @param {object} config The object configuration for the jasmine spec.
  * @returns {Promise.<void>}
  */
-const promiseFn = (type, config) => new Promise((resolve, reject) => {
+const promiseFn = (type, config) => {
 
   const jasmine = new Jasmine();
 
-  jasmine.loadConfig(Object.assign({
+  config = Object.assign({
     spec_dir: 'src',
-    spec_files: [
-      '**/*[tT]est.js'
-    ]
-  }, config));
+    spec_files: []
+  }, config);
 
-  jasmine.onComplete(passed => passed ? resolve(passed) : reject(passed));
+  jasmine.loadConfig(config);
 
   console.log(`Running: ${type}`);
-
-  jasmine.execute();
-
-});
+  return Promise.resolve(jasmine.execute());
+};
 
 module.exports = promiseFn;
