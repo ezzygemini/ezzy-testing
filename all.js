@@ -1,3 +1,5 @@
+console.debug('Running on directory:', process.cwd());
+
 /**
  * The promise that all tests will be performed.
  * @type {Promise.<void>}

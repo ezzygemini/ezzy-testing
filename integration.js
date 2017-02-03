@@ -5,7 +5,6 @@ const core = require('./core');
  * @type {Promise.<void>}
  */
 const promise = core('integration testing', {
-  spec_dir: 'src',
   spec_files: [
     '**/*[iI]nteg.js'
   ]
