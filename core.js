@@ -1,6 +1,12 @@
 const Jasmine = require('jasmine');
 
-module.exports = (type, config) => new Promise((resolve, reject) => {
+/**
+ * Core function that will execute a set of jasmine sets.
+ * @param {string} type The type of testing to do.
+ * @param {object} config The object configuration for the jasmine spec.
+ * @returns {Promise.<void>}
+ */
+const promiseFn = (type, config) => new Promise((resolve, reject) => {
 
   const jasmine = new Jasmine();
 
@@ -18,3 +24,5 @@ module.exports = (type, config) => new Promise((resolve, reject) => {
   jasmine.execute();
 
 });
+
+module.exports = promiseFn;
