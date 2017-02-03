@@ -7,17 +7,11 @@ const Jasmine = require('jasmine');
  * @returns {Promise.<void>}
  */
 const promiseFn = (type, config) => {
-
   const jasmine = new Jasmine();
-
-  config = Object.assign({
+  jasmine.loadConfig(Object.assign({
     spec_dir: 'src',
     spec_files: []
-  }, config);
-
-  jasmine.loadConfig(config);
-
-  console.log(`Running: ${type}`);
+  }, config));
   return Promise.resolve(jasmine.execute());
 };
 
