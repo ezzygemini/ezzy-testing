@@ -1,4 +1,4 @@
-const promise = [
+module.exports = [
   'unit',
   'integration',
   'functional',
@@ -20,11 +20,9 @@ const promise = [
   'beta',
   'ab'
 ].reduce((promise, suite) =>
-  promise.then(() => require(suite)), Promise.resolve())
+  promise.then(() => require('./' + suite)), Promise.resolve())
   .then(
     () => console.log('Testing Passed'),
     () => console.error('Test failed')
   )
   .then(() => process.exit(0));
-
-module.exports = promise;
