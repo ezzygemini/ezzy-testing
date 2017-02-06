@@ -23,16 +23,11 @@ const promiseFn = (type, config) => {
 
     fs.exists(path
     // jscs:disable
-      .normalize(process.cwd() + '/' + config['spec_dir']), (e, exists) => {
+      .normalize(process.cwd() + '/' + config['spec_dir']), exists => {
       // jscs:enable
 
-      if (e) {
-        console.error(`Error ${type}`);
-        return reject(e);
-      }
-
       if (!exists) {
-        console.log(`Skipped ${type}`);
+        console.log(`\nSkipped ${type}`);
         return resolve();
       }
 
@@ -43,9 +38,9 @@ const promiseFn = (type, config) => {
         'spec_files': []
       }, config));
 
-      console.log(`Running: ${type}`);
+      console.log(`\nRunning: ${type}`);
 
-      return resolve(jasmine.execute());
+      resolve(jasmine.execute());
     });
 
   });

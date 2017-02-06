@@ -22,7 +22,7 @@ module.exports = [
 ].reduce((promise, suite) =>
   promise.then(() => require('./' + suite)), Promise.resolve())
   .then(
-    () => console.log('Testing Passed'),
-    () => console.error('Test failed')
+    () => console.log('\nTesting Passed'),
+    () => console.error('\nTest failed')
   )
   .then(() => process.exit(0));
