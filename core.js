@@ -4,9 +4,17 @@ module.exports = (type, config) => new Promise((resolve, reject) => {
 
   const jasmine = new Jasmine();
 
+  if (typeof config === 'string') {
+    type += `  (test/${config}/*.js)`;
+    config = {
+      'spec_dir': `test/${config}`,
+      'spec_files': ['*.js', '**/*.js']
+    };
+  }
+
   jasmine.loadConfig(Object.assign({
-    spec_dir: 'src',
-    spec_files: [
+    'spec_dir': 'test',
+    'spec_files': [
       '**/*[tT]est.js'
     ]
   }, config));
