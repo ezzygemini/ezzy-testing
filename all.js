@@ -1,4 +1,4 @@
-[
+const promise = [
   'unit',
   'integration',
   'functional',
@@ -26,3 +26,5 @@
     () => console.error('Test failed')
   )
   .then(() => process.exit(0));
+
+module.exports = promise;
