@@ -10,6 +10,7 @@ const fs = require('fs');
  * @returns {Promise.<void>}
  */
 const promiseFn = (type, config) => {
+
   if (typeof config === 'string') {
     type += `  (test/${config}/*.js)`;
     config = {
@@ -26,10 +27,12 @@ const promiseFn = (type, config) => {
       // jscs:enable
 
       if (e) {
+        console.error(`Error ${type}`);
         return reject(e);
       }
 
       if (!exists) {
+        console.log(`Skipped ${type}`);
         return resolve();
       }
 
