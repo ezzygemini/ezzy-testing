@@ -40,7 +40,9 @@ const promiseFn = (type, config) => {
 
       console.log(`\nRunning: ${type}`);
 
-      resolve(jasmine.execute());
+      jasmine.onComplete(passed => passed ? resolve(passed) : reject(passed));
+
+      jasmine.execute();
     });
 
   });
