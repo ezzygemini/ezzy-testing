@@ -26,7 +26,10 @@ require('child_process').exec(
   'node ' +
   './node_modules/istanbul/lib/cli.js' +
   ' cover ' +
-  './node_modules/testing/all.js',
+  './node_modules/testing/all.js ' +
+  '&& cat ./coverage/lcov.info | ' +
+  './node_modules/coveralls/bin/coveralls.js && ' +
+  'rm -rf ./coverage',
   {
     cwd: path.normalize(__dirname + '/../../'),
     timeout: 900000 // 15 minute timeout
