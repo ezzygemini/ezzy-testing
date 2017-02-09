@@ -19,17 +19,15 @@
  * SOFTWARE.
  */
 const path = require('path');
+const exec = require('child_process').exec;
 
 process.env.NODE_LOG_LEVEL = 'debug';
 
-require('child_process').exec(
+exec(
   'node ' +
   './node_modules/istanbul/lib/cli.js' +
   ' cover ' +
-  './node_modules/testing/all.js ' +
-  '&& cat ./coverage/lcov.info | ' +
-  './node_modules/coveralls/bin/coveralls.js && ' +
-  'rm -rf ./coverage',
+  './node_modules/testing/all.js',
   {
     cwd: path.normalize(__dirname + '/../../'),
     timeout: 900000 // 15 minute timeout
@@ -43,5 +41,22 @@ require('child_process').exec(
     }
     if (stdout) {
       console.log(stdout);
+
+      exec('cat ./coverage/lcov.info | ' +
+        './node_modules/coveralls/bin/coveralls.js && ' +
+        'rm -rf ./coverage', (e, stdout, stderr) => {
+        if (e) {
+          // console.error(e);
+          // Seems to be a windows machine
+          console.warn('This seems to be a non-unix machine.' +
+            ' Coverage will not be uploaded to coveralls.');
+        }
+        if (stderr) {
+          console.error(stderr);
+        }
+        if (stdout) {
+          console.log(stdout);
+        }
+      });
     }
   });
