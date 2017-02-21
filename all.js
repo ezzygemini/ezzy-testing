@@ -5,6 +5,7 @@ module.exports = [
   'system',
   'e2e',
   'sanity',
+  'smoke',
   'regression',
   'acceptance',
   'load',
