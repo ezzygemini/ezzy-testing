@@ -46,13 +46,13 @@ exec(
         './node_modules/coveralls/bin/coveralls.js && ' +
         'rm -rf ./coverage', (e, stdout, stderr) => {
         if (e) {
-          console.error(e);
+          console.log(e);
           // Seems to be a windows machine
-          console.warn('This seems to be a non-unix machine.' +
+          console.log('This seems to be a non-unix machine.' +
             ' Coverage will not be uploaded to coveralls.');
         }
         if (stderr) {
-          console.error(stderr);
+          console.log(stderr);
         }
         if (stdout) {
           console.log(stdout);
