@@ -14,6 +14,8 @@
     "coveralls": "^2.11.16",
     "istanbul": "^0.4.5",
     "jasmine": "^2.5.3",
+    "protractor": "^5.1.1",
+    "ps-tree": "^1.1.0",
     "supertest": "^3.0.0"
   }
 }
