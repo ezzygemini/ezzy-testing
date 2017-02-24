@@ -1,7 +1,7 @@
 const exec = require('child_process').exec;
 const path = require('path');
-const {protractor} = require('../../package.json');
-const skipInstall = (protractor || {}).skipInstall;
+const protractor = require('../../package.json').protractor || {};
+const skipInstall = protractor.skipInstall;
 const port = protractor.port || 9005;
 const cmd = protractor.cmd || 'npm start';
 const psTree = require('ps-tree');
