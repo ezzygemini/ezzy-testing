@@ -1,5 +1,5 @@
-const {protractor} = require('../../package.json');
-const {webdriverConfig} = protractor || {};
+const protractor = require('../../package.json').protractor || {};
+const webdriverConfig = protractor.webdriverConfig || {};
 
 exports.config = Object.assign({
   seleniumServerJar: '../../node_modules/protractor/' +
@@ -9,7 +9,7 @@ exports.config = Object.assign({
     '../../test/e2e/*Test.js',
     '../../test/e2e/**/*Test.js'
   ],
-  baseUrl: 'http://localhost:' + (protractor.port || 9000) + '/',
+  baseUrl: 'http://localhost:' + (protractor.port || 9005) + '/',
   framework: 'jasmine',
   jasmineNodeOpts: {defaultTimeoutInterval: 30000},
   capabilities: {browserName: 'chrome'}

@@ -1,17 +1,21 @@
 const exec = require('child_process').exec;
 const path = require('path');
-const protractor = require('../../package.json').protractor || {};
+const pkg = require('../../package.json');
+const scripts = pkg.scripts || {};
+const protractor = pkg.protractor || {};
 const skipInstall = protractor.skipInstall;
 const port = protractor.port || 9005;
-const cmd = protractor.cmd || 'npm start';
+const cmd = protractor.cmd || scripts.start || 'npm start';
 const psTree = require('ps-tree');
+const enableLogging = protractor.logging;
 
 const log = (e, stdout, stderr, addlMsg) => {
   if (addlMsg) {
     console.log(addlMsg);
   }
   if (e) {
-    console.log(addlMsg, 'Error Ocurred:');
+    console.log(addlMsg, 'Error Occurred: ', typeof e);
+    console.dir(e);
     console.error(e);
   }
   if (stdout) {
@@ -65,7 +69,7 @@ const promise = new Promise((resolve, reject) => {
     exec('node node_modules/protractor/bin/webdriver-manager update',
       {timeout: 120000}, (e, stdout, stderr) => {
 
-        log(e, stdout, stderr, 'Webdriver Update Requested');
+        log(e, stdout, stderr, 'Webdriver Update Process');
         if (e) {
           return reject(e);
         }
@@ -74,17 +78,21 @@ const promise = new Promise((resolve, reject) => {
         console.log('Command Executed for App:', command);
         const application =
           exec(command, {timeout: 1.8e+6}, (e, stdout, stderr) => {
-            log(e, stdout, stderr, 'Application Requested');
-            if (e) {
-              killAll();
-              return reject(e);
-            }
+            log(null, enableLogging ? stdout : null,
+              stderr, 'Application Process');
           });
         const webdriver =
           exec('node node_modules/protractor/bin/webdriver-manager start',
             {timeout: 1.8e+6}, (e, stdout, stderr) => {
 
-              log(e, stdout, stderr, 'Webdriver Requested');
+              const okMsg = 'Selenium Server is up and running';
+              if (
+                (e && e.Error && e.Error.indexOf(okMsg) > -1) ||
+                (stderr && stderr.indexOf(okMsg) > -1)
+              ) {
+                return;
+              }
+              log(e, stdout, stderr, 'Webdriver Process');
               if (e) {
                 killAll();
                 return reject(e);
@@ -124,7 +132,7 @@ const promise = new Promise((resolve, reject) => {
     exec('npm install protractor ' +
       '&& node node_modules/protractor/bin/webdriver-manager update',
       {timeout: 20000}, (e, stdout, stderr) => {
-        log(e, stdout, stderr, 'Install Requested');
+        log(e, stdout, stderr, 'Install Process');
         if (e) {
           return reject(e);
         }
