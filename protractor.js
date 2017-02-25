@@ -63,7 +63,7 @@ const killProcess = pid => {
   }
 };
 
-const promiseFn = (folter = 'e1e') => new Promise((resolve, reject) => {
+const promiseFn = (folder = 'e2e') => new Promise((resolve, reject) => {
 
   const runCommands = () => {
     exec('node node_modules/protractor/bin/webdriver-manager update',
@@ -74,7 +74,7 @@ const promiseFn = (folter = 'e1e') => new Promise((resolve, reject) => {
           return reject(e);
         }
 
-        const command = `${cmd} --TEST_FOLTER=${folder} --PORT=${port}`;
+        const command = `${cmd} --TEST_FOLDER=${folder} --PORT=${port}`;
         console.log('Command Executed for App:', command);
         const application =
           exec(command, {timeout: 1.8e+6}, (e, stdout, stderr) => {
