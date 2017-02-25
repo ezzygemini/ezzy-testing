@@ -1,0 +1,17 @@
+{
+  "baseUrl": "https://pdi-like-bk-beta.corp.amazon.com/ws/",
+  "/linkType/listView": {
+    "get": {
+      "expect": {
+        "status": 200
+      }
+    }
+  },
+  "/linkType/listViewUndefined": {
+    "get": {
+      "expect": {
+        "status": 400
+      }
+    }
+  }
+}
