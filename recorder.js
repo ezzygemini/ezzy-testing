@@ -1,13 +1,28 @@
-($ => {
+(callback => {
+  if (window.jQuery) {
+    return callback(window.jQuery);
+  }
+  const script = document.createElement('script');
+  script.setAttribute('src',
+    'https://code.jquery.com/jquery-3.1.1.min.js?_' + Math.random());
+  script.setAttribute('integrity',
+    'sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=');
+  script.setAttribute('crossorigin', 'anonymous');
+  script.addEventListener('load', () => callback(jQuery));
+  document.head.appendChild(script);
+})($ => {
 
   // Disable logger and enable current logger.
-  window.logger._silent = true;
+  if (window.logger) {
+    window.logger._silent = true;
+  }
   window.stack = [];
 
+  const url = window.location.href.replace(window.location.origin, '');
   const start = new Date();
 
   const $body = $('body');
-  const events = 'click keyup select';
+  const events = 'click keyup select mouseover';
 
   if (window.growStack) {
     $body.off(events, window.growStack);
@@ -91,18 +106,27 @@
         this.string += `  |  '${txt}'`;
       }
 
-      let action;
+      if(this.type === 'mouseover' && this.sleep < 3000){
+        this.promises = [];
+        return;
+      }
+
+      this.promises = this.sleep > 50 ? [`sleep(${this.sleep})`] : [];
+
+      this.promises.push(`sel='${this.selector}'`, `wait(sel)`);
+
       switch (this.type) {
         case 'keyup':
-          action = `.sendKeys('${String.fromCharCode(event.which)}')`;
+          this.promises
+            .push(`$(sel).sendKeys('${String.fromCharCode(event.which)}')`);
           break;
-        default:
-          action = `.click()`;
+        case 'mouseover':
+          this.promises.push(`mouseOver(sel)`);
+          break;
+        case 'click':
+          this.promises.push(`cWait(sel)`, `$(sel).click()`);
+          break;
       }
-      this.promise = $.trim(`
-        browser.sleep(${this.sleep});
-        .then($('${this.selector}')${action};
-      `).replace(/\n\s*/g, '');
 
     }
   }
@@ -110,9 +134,23 @@
   const logStack = () => {
     console.clear();
     console.log(window.stack);
-    console.log(JSON
-      .stringify(window.stack.map(item => item.string), null, 4));
-    console.log(window.stack.reduce((a, b) => a + '\n' + b.promise, ''));
+    console.log(window.stack
+      .reduce((a, b) => a + (b.promises.length ? ';\n' : '') + b.promises.join(';'), [
+        `const EC = protractor.ExpectedConditions, wait = browser.wait, sleep = browser.sleep;`,
+        `const wait = selector => wait(EC.presenceOf($(selector)), 5000);`,
+        `const cWait = selector => wait(EC.elementToBeClickable($(selector)), 5000);`,
+        `const mouseOver = selector => browser.actions().mouseMove($(selector)).perform();`,
+        `browser.get('${url}');`,
+        `let sel;`
+      ].join('\n')));
+    // console.log(JSON
+    //  .stringify(window.stack.map(item => item.string), null, 4));
+    if (window.stack.length) {
+      const lastOne = window.stack[window.stack.length - 1];
+      console.log(lastOne);
+      console.log(lastOne.event.target);
+      console.dir(lastOne.event.target);
+    }
   };
 
   logStack();
@@ -132,7 +170,7 @@
    * @param  {string=} rootNodeName  if absent the root is #document
    * @return {string}                 XPath
    */
-  $.fn.getXPath = function (rootNodeName) {
+  $.fn.getXPath = function(rootNodeName) {
     //other nodes may have the same XPath but because this
     // function is used to determine the corresponding input
     // name of a data node, index is not included
@@ -162,4 +200,4 @@
     return '/' + steps.reverse().join('/');
   };
 
-})(jQuery);
+});
