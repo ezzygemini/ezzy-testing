@@ -100,7 +100,7 @@ const promiseFn = (folder = 'e2e') => new Promise((resolve, reject) => {
             });
         const protractor =
           exec('node node_modules/protractor/bin/protractor ' +
-            path.normalize(__dirname + '/protractorConfig.js'),
+            path.normalize(__dirname + '/protractor.conf.js'),
             {
               timeout: 1.8e+6,
               cwd: path.normalize(__dirname + '/../../')
