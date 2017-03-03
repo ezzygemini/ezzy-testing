@@ -11,6 +11,7 @@
   "license": "MIT",
   "version": "0.1.0",
   "dependencies": {
+    "argument": "ezzygemini/argument",
     "coveralls": "^2.11.16",
     "istanbul": "^0.4.5",
     "jasmine": "^2.5.3",
