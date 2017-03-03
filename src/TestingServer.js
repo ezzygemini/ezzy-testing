@@ -27,7 +27,7 @@ class TestingServer {
             console.error('Failed to execute the command.');
             console.error(e);
             this._server.kill();
-            resolve(args);
+            resolve(e);
           }
         );
       }, 6000);
