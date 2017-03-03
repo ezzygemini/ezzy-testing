@@ -1,9 +1,9 @@
 const TestingServer = require('./src/TestingServer');
 module.exports = new TestingServer([
   'node',
-  'node_modules/testing/src/runJasmine',
+  './node_modules/testing/src/runJasmine',
   '--SPEC_FOLDER="test/api"'
-].join(',')).exec();
+].join(' ')).exec();
 
 // module.exports = require('./core')('api testing', 'api');
 

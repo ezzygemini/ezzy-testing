@@ -2,54 +2,46 @@ const path = require('path');
 const Process = require('./process');
 const cwd = path.normalize(__dirname + '/../../../');
 
-let pkg;
-try {
-  pkg = require('../../../package.json');
-} catch (e) {
-  pkg = {};
-}
-
-const start = (pkg.scripts ? pkg.scripts.start : '') || 'npm start';
-
 class TestingServer {
 
   constructor(command) {
-    this._server = new Process(start, cwd);
+    this._server = new Process('npm start', cwd);
     this._command = new Process(command, cwd);
   }
 
   /**
    * Executes the command after the server starts.
    */
-  exec() {
-    return this._server.exec().then(
-      () => this._command.exec()
-        .then(
-          (...args) => {
+  exec(){
+    this._server.exec(() => {}, () => {}).catch(() => {});
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        this._command.exec().then(
+          out => {
+            console.log(out);
             console.log('Command Done.');
-            console.log(args);
-            this.killBoth();
+            this._server.kill();
+            resolve(out);
           },
-          (...args) => {
+          e => {
             console.error('Failed to execute the command.');
-            console.error(args);
-            this.killBoth();
+            console.error(e);
+            this._server.kill();
+            resolve(args);
           }
-        ),
-      (...args) => {
-        console.error('Failed to start the server.');
-        console.error(args);
-        this.killBoth();
-      }
-    );
+        );
+      }, 6000);
+    });
   }
 
   /**
    * Kills both processes.
    */
   killBoth(){
-    this._server.kill();
-    this._command.kill();
+    try{
+      this._server.kill();
+      this._command.kill();
+    }catch(e){}
   }
 
 }

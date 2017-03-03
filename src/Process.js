@@ -1,3 +1,4 @@
+const spawn = require('child_process').spawn;
 const exec = require('child_process').exec;
 
 const log = (e, stdout, stderr, addlMsg) => {
@@ -58,9 +59,10 @@ class Process {
 
   constructor(command, cwd, timeout = 0) {
     this._command = command;
-    this._pid = null;
+    this._process = null;
     this._cwd = cwd;
     this._timeout = timeout;
+    this._running = false;
   }
 
   /**
@@ -68,20 +70,22 @@ class Process {
    * @returns {Promise}
    */
   exec() {
-    this.kill();
+    console.log('Executing:', this._cwd, this._command);
     return new Promise((resolve, reject) => {
-      this._pid = exec(this._command, {
+      this._running = true;
+      this._process = exec(this._command, {
         cwd: this._cwd,
         timeout: this._timeout
       }, (e, stdout, stderr) => {
-        log(e, stdout, stderr, this._command);
-        if (e) {
-          return reject(e);
-        }
+        this._running = false;
         if (stderr) {
           return reject(stderr);
+        } else if (stdout) {
+          return resolve(stdout);
+        } else if (e) {
+          return reject(e);
         }
-        resolve(stdout);
+        resolve();
       });
     });
   }
@@ -90,9 +94,15 @@ class Process {
    * Kills the running process.
    */
   kill() {
-    if (this._pid) {
-      killProcess(this._pid.pid);
-      this._pid = null;
+    if (this._process) {
+      if (this._running) {
+        try {
+          killProcess(this._process.pid);
+        } catch (e) {
+        }
+        this._running = false;
+      }
+      this._process = null;
     }
   }
 
