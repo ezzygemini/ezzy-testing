@@ -13,21 +13,21 @@ class TestingServer {
    * Executes the command after the server starts.
    */
   exec(){
-    this._server.exec(() => {}, () => {}).catch(() => {});
-    return new Promise((resolve, reject) => {
+    this._server.exec().catch(() => {});
+    return new Promise(resolve => {
       setTimeout(() => {
         this._command.exec().then(
           out => {
             console.log(out);
             console.log('Command Done.');
-            this._server.kill();
             resolve(out);
+            this.killBoth();
           },
           e => {
             console.error('Failed to execute the command.');
             console.error(e);
-            this._server.kill();
             resolve(e);
+            this.killBoth();
           }
         );
       }, 6000);
@@ -41,6 +41,7 @@ class TestingServer {
     try{
       this._server.kill();
       this._command.kill();
+      process.exit(0);
     }catch(e){}
   }
 
