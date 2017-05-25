@@ -1,3 +1,5 @@
+process.env.TESTING_TYPE = 'all';
+
 module.exports = [
   'unit',
   'integration',
