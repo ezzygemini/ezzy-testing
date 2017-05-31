@@ -1,9 +1,13 @@
-const TestingServer = require('./src/TestingServer');
-module.exports = new TestingServer([
-  'node',
-  './node_modules/testing/src/runJasmine',
-  '--SPEC_FOLDER="test/api"'
-].join(' ')).exec();
+module.exports = require('./core')('api testing', 'api')
+  .then((result) => process.env.TESTING_TYPE ? result : process.exit(0));
+
+// const argument = require('argument');
+// const TestingServer = require('./src/TestingServer');
+// module.exports = new TestingServer([
+//   'node',
+//   './node_modules/testing/src/runJasmine',
+//   '--SPEC_FOLDER="test/api"'
+// ].join(' ')).exec();
 
 // module.exports = require('./core')('api testing', 'api');
 
