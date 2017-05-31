@@ -1,5 +1,5 @@
 const path = require('path');
-const Process = require('./process');
+const Process = require('./Process');
 const cwd = path.normalize(__dirname + '/../../../');
 
 class TestingServer {
