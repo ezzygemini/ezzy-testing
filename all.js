@@ -21,7 +21,7 @@ module.exports = [
   'compatibility',
   'alpha',
   'beta',
-  // 'api',
+  'api',
   'ab'
 ].reduce((promise, suite) =>
   promise.then(() => require('./' + suite)), Promise.resolve())
