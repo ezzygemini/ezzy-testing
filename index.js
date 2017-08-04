@@ -1,42 +1,26 @@
 const path = require('path');
-const exec = require('child_process').exec;
+const spawn = require('child_process').spawn;
+const log = d => process.stdout.write(d);
+const cwd = path.normalize(__dirname + '/../../');
 
-process.env.NODE_LOG_LEVEL = 'debug';
+let bat;
 
-exec(
-  'node ' +
-  './node_modules/istanbul/lib/cli.js' +
-  ' cover ' +
-  './node_modules/testing/all.js',
-  {
-    cwd: path.normalize(__dirname + '/../../'),
-    timeout: 900000 // 15 minute timeout
-  },
-  (e, stdout, stderr) => {
-    if (e) {
-      console.error(e);
-    }
-    if (stderr) {
-      console.error(stderr);
-    }
-    if (stdout) {
-      console.log(stdout);
-
-      exec('cat ./coverage/lcov.info | ' +
-        './node_modules/coveralls/bin/coveralls.js && ' +
-        'rm -rf ./coverage', (e, stdout, stderr) => {
-        if (e) {
-          console.log(e);
-          // Seems to be a windows machine
-          console.log('This seems to be a non-unix machine.' +
-            ' Coverage will not be uploaded to coveralls.');
-        }
-        if (stderr) {
-          console.log(stderr);
-        }
-        if (stdout) {
-          console.log(stdout);
-        }
-      });
-    }
-  });
+bat = spawn('/bin/sh', ['-c',
+  'PORT=9001 HIDE_ARGUMENTS=true ' +
+  'node ./node_modules/istanbul/lib/cli.js cover ./node_modules/testing/all.js'
+], {cwd, timeout: 900000});
+bat.stdout.on('data', log);
+bat.stderr.on('data', log);
+bat.on('exit', code => {
+  if(code !== 0){
+    return console.log(`Child exited with code ${code}`);
+  }
+  console.log(process.cwd());
+  bat = spawn('/bin/sh', ['-c',
+    'PORT=9001 HIDE_ARGUMENTS=true ' +
+    'cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js'
+  ], {cwd, timeout:180000 });
+  bat.stdout.on('data', log);
+  bat.stderr.on('data', log);
+  bat.on('exit', code => console.log(`Child exited with code ${code}`));
+});
