@@ -13,4 +13,4 @@ module.exports = core('unit testing (src/*Test.js)', {
     '*.js',
     '**/*.js'
   ]
-}));
+})).then((result) => process.env.TESTING_TYPE ? result : process.exit(0));

@@ -29,4 +29,4 @@ module.exports = [
     () => console.log('\nTesting Passed'),
     () => console.error('\nTest failed')
   )
-  .then(() => process.exit(0));
+  .then((result) => process.env.TESTING_TYPE ? result : process.exit(0));
