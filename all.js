@@ -30,4 +30,5 @@ module.exports = [
     () => console.log('\nTesting Passed'),
     () => console.error('\nTest failed')
   )
-  .then((result) => process.env.TESTING_TYPE ? result : process.exit(0));
+  // Process has to exit for coverage to take over.
+  .then((result) => process.exit(0));
