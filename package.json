@@ -1,9 +1,14 @@
 {
-  "name": "ezzy-testing",
-  "description": "A small pre-packaged module that will run jasmine tests against a repo.",
+  "name": "@ezzy/testing",
+  "description": "A small testing module that will run jasmine tests against a repo.",
   "repository": {
     "type": "git",
     "url": "https://github.com/ezzygemini/testing.git"
+  },
+  "author": {
+    "name": "Moises Romero",
+    "email": "ezzygemini@gmail.com",
+    "url": "http://ezzygemini.com"
   },
   "scripts": {
     "test": "echo 'No testing available for this repo'"
