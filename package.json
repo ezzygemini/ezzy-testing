@@ -1,20 +1,20 @@
 {
   "name": "ezzy-testing",
   "description": "A small testing module that will run jasmine tests against a repo.",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/ezzygemini/testing.git"
-  },
+  "version": "0.1.10",
   "author": {
     "name": "Moises Romero",
-    "email": "ezzygemini@gmail.com",
-    "url": "http://ezzygemini.com"
+    "url": "http://ezzygemini.com",
+    "email": "ezzygemini@gmail.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ezzygemini/ezzy-testing.git"
   },
   "scripts": {
     "test": "echo 'No testing available for this repo'"
   },
   "license": "MIT",
-  "version": "0.1.2",
   "dependencies": {
     "coveralls": "^2.11.16",
     "ezzy-argument": "^0.1.0",
