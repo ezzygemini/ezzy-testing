@@ -1,5 +1,5 @@
 {
-  "name": "testing",
+  "name": "ezzy-testing",
   "description": "A small pre-packaged module that will run jasmine tests against a repo.",
   "repository": {
     "type": "git",
