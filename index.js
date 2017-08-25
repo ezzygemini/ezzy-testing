@@ -2,7 +2,7 @@ const path = require('path');
 const spawn = require('child_process').spawn;
 const log = d => process.stdout.write(d);
 const cwd = path.normalize(__dirname + '/../../');
-const argument = require('argument');
+const argument = require('ezzy-argument');
 const suite = argument('suite', 'all');
 
 let bat;

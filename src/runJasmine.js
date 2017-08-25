@@ -1,4 +1,4 @@
-const argument = require('argument');
+const argument = require('ezzy-argument');
 const Jasmine = require('jasmine');
 const jasmine = new Jasmine();
 jasmine.loadConfig({
