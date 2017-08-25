@@ -10,7 +10,7 @@ let bat;
 bat = spawn('/bin/sh', ['-c',
   'PORT=9001 HIDE_ARGUMENTS=true ' +
   'node ./node_modules/istanbul/lib/cli.js ' +
-  `cover ./node_modules/testing/${suite}.js`
+  `cover ./node_modules/ezzy-testing/${suite}.js`
 ], {cwd, timeout: 900000});
 bat.stdout.on('data', log);
 bat.stderr.on('data', log);
