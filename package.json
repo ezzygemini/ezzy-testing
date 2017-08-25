@@ -1,5 +1,5 @@
 {
-  "name": "@ezzy/testing",
+  "name": "ezzy-testing",
   "description": "A small testing module that will run jasmine tests against a repo.",
   "repository": {
     "type": "git",
