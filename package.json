@@ -14,7 +14,7 @@
     "coveralls": "^2.11.16",
     "ezzy-argument": "^0.1.0",
     "istanbul": "^0.4.5",
-    "jasmine": "^2.5.3",
+    "jasmine": "^2.8.0",
     "protractor": "^5.1.1",
     "ps-tree": "^1.1.0",
     "request": "^2.79.0",
