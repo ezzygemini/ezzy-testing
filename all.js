@@ -5,7 +5,6 @@ module.exports = [
   'integration',
   'functional',
   'system',
-  'e2e',
   'sanity',
   'smoke',
   'regression',
@@ -23,6 +22,7 @@ module.exports = [
   'beta',
   'api',
   'ab',
+  'e2e',
   'custom'
 ].reduce((promise, suite) =>
   promise.then(() => require('./' + suite)), Promise.resolve())
