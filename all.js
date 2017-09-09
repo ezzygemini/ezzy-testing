@@ -5,7 +5,7 @@ module.exports = [
   'integration',
   'functional',
   'system',
-  // 'e2e',
+  'e2e',
   'sanity',
   'smoke',
   'regression',
