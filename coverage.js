@@ -18,7 +18,6 @@ bat.on('exit', code => {
   if (code !== 0) {
     return console.log(`Child exited with code ${code}`);
   }
-  console.log(process.cwd());
   bat = spawn('/bin/sh', ['-c',
     'PORT=9001 HIDE_ARGUMENTS=true ' +
     'cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js'
