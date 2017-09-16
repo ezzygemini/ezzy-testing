@@ -1,3 +1,4 @@
+process.env.ENVIRONMENT = process.env.ENVIRONMENT || 'testing';
 process.env.HIDE_ARGUMENTS = true;
 const Jasmine = require('jasmine');
 const path = require('path');
