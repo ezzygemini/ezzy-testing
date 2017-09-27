@@ -22,7 +22,7 @@
     "jasmine": "^2.8.0",
     "protractor": "^5.1.2",
     "ps-tree": "^1.1.0",
-    "request": "^2.82.0",
+    "request": "^2.83.0",
     "supertest": "^3.0.0"
   }
 }
