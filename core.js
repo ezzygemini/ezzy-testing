@@ -14,7 +14,6 @@ const fs = require('fs');
 const promiseFn = (type, config) => {
 
   if (typeof config === 'string') {
-    type += `  (test/${config}/*.js)`;
     config = {
       'spec_dir': `test/${config}`,
       'spec_files': ['*.js', '**/*.js']
@@ -29,7 +28,7 @@ const promiseFn = (type, config) => {
       // jscs:enable
 
       if (!exists) {
-        console.log(`\nSkipped ${type}`);
+        console.log(`No ${type} found`);
         return resolve();
       }
 
@@ -40,7 +39,7 @@ const promiseFn = (type, config) => {
         'spec_files': []
       }, config));
 
-      console.log(`\nRunning: ${type}`);
+      console.log(`\nRunning ${type} (test/${config}/*.js)`);
 
       jasmine.onComplete(passed => passed ? resolve(passed) : reject(passed));
 

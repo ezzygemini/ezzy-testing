@@ -9,8 +9,7 @@ module.exports = [
   'smoke',
   'regression',
   'acceptance',
-  'load',
-  'stress',
+  'api',
   'performance',
   'usability',
   'install',
@@ -18,12 +17,13 @@ module.exports = [
   'recovery',
   'security',
   'compatibility',
+  'custom',
+  'e2e',
   'alpha',
   'beta',
-  'api',
-  'ab',
-  'e2e',
-  'custom'
+  'load',
+  'stress',
+  'ab'
 ].reduce((promise, suite) =>
   promise.then(() => require('./' + suite)), Promise.resolve())
   .then(
