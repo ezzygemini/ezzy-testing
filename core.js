@@ -39,7 +39,7 @@ const promiseFn = (type, config) => {
         'spec_files': []
       }, config));
 
-      console.log(`\nRunning ${type} (test/${config}/*.js)`);
+      console.log(`\nRunning ${type} (test/${config['spec_dir']}/*.js)`);
 
       jasmine.onComplete(passed => passed ? resolve(passed) : reject(passed));
 
