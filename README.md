@@ -1,4 +1,6 @@
 # ezzy-testing
+
+[![Greenkeeper badge](https://badges.greenkeeper.io/ezzygemini/ezzy-testing.svg)](https://greenkeeper.io/)
 [![Build Status](https://travis-ci.org/ezzygemini/ezzy-testing.svg?branch=master)](https://travis-ci.org/ezzygemini/ezzy-testing)
 [![Coverage Status](https://coveralls.io/repos/github/ezzygemini/ezzy-testing/badge.svg?branch=master)](https://coveralls.io/github/ezzygemini/ezzy-testing?branch=master)
 
