@@ -7,7 +7,7 @@ module.exports = core('unit testing (src/*Test.js)', {
     '**/*Test.js',
     '**/*Unit.js'
   ]
-}).then(() => core('unit testing (test/unit/*.js)', {
+}).finally(() => core('unit testing (test/unit/*.js)', {
   'spec_dir': 'test/unit',
   'spec_files': [
     '*.js',
