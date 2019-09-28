@@ -17,7 +17,7 @@
   "license": "MIT",
   "dependencies": {
     "coveralls": "^3.0.2",
-    "ezzy-argument": "^0.1.18",
+    "ezzy-argument": "^3.1.5",
     "istanbul": "^0.4.5",
     "jasmine": "^3.1.0",
     "protractor": "^5.4.1",
